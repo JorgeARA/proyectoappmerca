@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +45,13 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::resource('users',App\Http\Controllers\UserController::class)->middleware('auth');
+Route::get('/user', function () {
+    return view('user.index');
+});
+
+Route::get('/user/create',[UserController::class,'create']);
+
+/*Route::resource('users',App\Http\Controllers\UserController::class);*/
 
 
 
